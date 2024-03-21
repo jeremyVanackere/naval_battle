@@ -1,0 +1,16 @@
+{
+  "branches": ["main"],
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    ["@semantic-release/exec", {
+          "prepareCmd": "mvn -q versions:set -DnewVersion=${nextRelease.version} && echo ${nextRelease.version} > version.txt"
+    }],
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/changelog",
+    ["@semantic-release/git", {
+          "assets": ["pom.xml", "**/pom.xml", "CHANGELOG.md"],
+          "message": "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}[skip ci]"
+    }],
+    "@semantic-release/git"
+    ]
+}
